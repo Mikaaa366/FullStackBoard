@@ -20,11 +20,11 @@ exports.register = async (req, res) => {
             const user = await User.create({ login, password: await bcrypt.hash(password, 10), avatar: req.file.filename, phone_number });
             res.status(201).send({ message: 'User created ' + user.login });
         } else {
-            if (req.file) {
+            
                 fs.unlinkSync(__dirname + `/../public/uploads/${req.file.filename}`);
-            }
+            
             res.status(400).send({ message: 'Bad request' });
-
+           
         }
     } catch(err) {
         res.status(500).send({ message: err.message });
@@ -58,7 +58,17 @@ exports.login = async (req, res) => {
 }
 
 exports.getUser = async (req, res) => {
-    console.log('Gites');
+    try {
+        const { login } = req.body;
+        const user = await User.findOne({ login });
+        if(!user) {
+            res.status(400).send({ message: 'Login not found'});
+        } else {
+            return user;
+        }
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
 }
 
 exports.logout = async (req, res) => {

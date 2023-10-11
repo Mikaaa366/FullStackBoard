@@ -94,14 +94,14 @@ exports.putById = async (req, res) => {
         const advert = await Advertisement.findById(req.params.id);
         const fileType = req.file ? await getImageFileType(req.file) : 'unknown'
         if (title && content && publish_date && price && location) {
-
+            
             if (advert && req.file && ['image/png', 'image/jpeg', 'image/gif'].includes(fileType)) {
                 const escapedTitle = escapeHtml(title);
                 const escapedContent = escapeHtml(content);
                 const escapedDate = escapeHtml(publish_date);
                 const escapedPrice = escapeHtml(price);
                 const escapedLocation = escapeHtml(location);
-
+                
                 if (
                     (escapedTitle.length >= 10 && escapedTitle.length <= 50) &&
                     (escapedContent.length >= 20 && escapedContent.length <= 1000)

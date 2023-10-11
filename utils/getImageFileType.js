@@ -1,7 +1,8 @@
 const fs = require('fs');
-const getImageFileType = async (image) => {
- // Determine header bytes
 
+const getImageFileType = async (image) => {
+
+  // Determine header bytes
   const determineHeader = () => new Promise((resolve, reject) => {
     try {
       const file = fs.readFileSync(image.path, null).buffer;
@@ -12,11 +13,11 @@ const getImageFileType = async (image) => {
     catch (err) {
       reject(err);
     }
-
   });
-  try {
 
+  try {
     const header = await determineHeader()
+
     switch(header) {
       case '89504e47':
         return 'image/png';
