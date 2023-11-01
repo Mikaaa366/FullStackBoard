@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { logIn } from "../../../redux/userRedux";
 import { useNavigate } from "react-router-dom";
 
-
 const LoginPage = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
@@ -66,8 +65,6 @@ const LoginPage = () => {
                     <Alert.Heading>Incorrect data</Alert.Heading>
                     <p>Login or password are Incorrect...</p>
                 </Alert> )}
-
-
             { status === 'loading' && (
                 <Spinner animation="border" role="status" className="d-block mx-auto">
                     <span className="visually-hidden">Loading...</span>

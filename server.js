@@ -52,9 +52,10 @@ db.on('error', err => console.log('Error ', + err));
 //routes
 const advertisementRoutes = require('./routes/advertisement.routes');
 const authRoutes = require('./routes/auth.routes');
+//const userRoutes = require('./routes/user.routes');
 
 app.use(session({ 
-  secret: 'zaq12wsx',
+  secret: process.env.secret,
   store: MongoStore.create({
     mongoUrl: dbUri,
     ttl: 3600,
@@ -75,7 +76,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 //app.use.routes
 app.use('/api', advertisementRoutes);
 app.use('/auth', authRoutes);
-
+//app.use('/api', userRoutes);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/client/build/index.html'));
